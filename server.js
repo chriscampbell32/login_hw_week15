@@ -8,6 +8,20 @@ var bcrypt = require('bcryptjs');
 var app = express();
 var PORT = process.env.NODE_ENV || 8090;
 
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('student_teacher_db', 'root');
+
+var Students = sequelize.define('Students', {
+    id: {
+        type: Sequelize.STRING,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    firstname: Sequelize.STRING,
+    lastname: Sequelize.STRING,
+    email: Sequelize.STRING
+});
+
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -21,11 +35,13 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 app.get('/login', function(req, res){
-    res.send('login');
+    res.render('login');
 });
 
 app.get('/registration', function(req,res){
-    res.send('registration');
+    res.render('login', {
+     //   msg: req.query.msg
+    });
 });
 
 app.get('/students', function(req, res){
