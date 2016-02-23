@@ -8,14 +8,32 @@ var bcrypt = require('bcryptjs');
 var app = express();
 var PORT = process.env.NODE_ENV || 8090;
 
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+//sequelize
+
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 
-app.set('index', 'handlebars');
+app.set('view engine', 'handlebars');
 
-app.get('/', function(req, res){
-    res.render('home');
+app.get('/login', function(req, res){
+    res.send('login');
+});
+
+app.get('/registration', function(req,res){
+    res.send('registration');
+});
+
+app.get('/students', function(req, res){
+    res.send('students');
+});
+
+app.get('/instructors', function(req, res){
+    res.send('instructors');
 });
 
 
