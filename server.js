@@ -160,7 +160,12 @@ app.get('/student-registration', function(req, res){
 
 app.get('/student-login', function(req, res){
   res.render('student-login');
-})
+});
+
+app.post('/student-login', passport.authenticate('local', {
+  successRedirect: '/secret',
+  failureRedirect: '/login?msg=Login credentials do not work'
+}));
 
 app.get('/instructor-login', function(req, res){
   res.render('instructor-login');
@@ -185,11 +190,17 @@ app.post("/student-info", function(req, res){
   });
 })
 
-app.post('/check', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/?msg=Login Credentials do not work'
-}));
+// app.post('/check', passport.authenticate('local', {
+//   successRedirect: '/',
+//   failureRedirect: '/?msg=Login Credentials do not work'
+// }));
 
+app.get('/secret', function(req, res) {
+    res.render('secret', {
+      user: req.user,
+      isAuthenticated: req.isAuthenticated()
+    });
+});
 
 
 
