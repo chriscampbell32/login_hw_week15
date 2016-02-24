@@ -96,7 +96,7 @@ var Student = sequelize.define('student', {
 });
 
 
-//student model...
+
 //body parser reads info from html
 app.use(bodyParser.urlencoded({
     extended: false
@@ -145,7 +145,7 @@ passport.deserializeUser(function(id, done) {
     done(null, { id: id, name: id })
 });
 
-//get requests & page redirects
+//routes//get requests & page redirects
 app.get('/', function(req, res){
   res.send('HOME PAGE');
 });
@@ -188,7 +188,9 @@ app.post("/student-info", function(req, res){
     console.log(err);
     res.redirect('/?msg=' + err.errors[0].message);
   });
-})
+});
+
+//login post requests??????
 
 // app.post('/check', passport.authenticate('local', {
 //   successRedirect: '/',
