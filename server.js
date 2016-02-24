@@ -47,11 +47,28 @@ app.get('/registration', function(req,res){
 });
 
 app.post('/registration', function(req, res){
-    Students.create(req.body).then(function(user){
+    Students.create(req.body).then(function(){
         res.redirect('/secret');
     }).catch(function(err){
-        res.send("/registration?msg=erroromgomg");
+        res.redirect("/registration?msg=erroromgomg");
     });
+});
+
+app.post('/login', function(req, res) {
+   Students.findOne({
+     where: {
+       email: req.body.email,
+       password: req.body.password
+     }
+    }).then(function(userData) {
+     res.render('login', {userData});
+   }).catch(function(err) {
+     res.send("login?msg=Error");
+   });
+ });
+
+app.get('/login', function(req, res){
+    res.render('login');
 });
 
 app.get('/students', function(req, res){
